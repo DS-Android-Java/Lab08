@@ -49,7 +49,15 @@
                 android:padding="20dp"
                 app:srcCompat="@drawable/reproducir" />
 
-
+            <ImageButton
+                android:id="@+id/btn_max"
+                android:layout_width="96dp"
+                android:layout_height="75dp"
+                android:layout_below="@+id/delete"
+                android:layout_marginRight="0dp"
+                android:layout_toLeftOf="@+id/btn_play"
+                android:background="@color/cardview_shadow_end_color"
+                app:srcCompat="@drawable/redimensionar" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

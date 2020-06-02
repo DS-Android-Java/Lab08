@@ -101,6 +101,7 @@ public class CameraFragment extends Fragment {
        return view;
     }
 
+
     private void setDataToDataBase() {
         db = databaseHandler.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -117,8 +118,12 @@ public class CameraFragment extends Fragment {
     }
 
     public void Recorder() {
-        if (grabacion == null) {//Quiere decir que no se esta grabando nada
+        if(localDataBaseResponse.getSingleRowArrayList() == null) {//Si la lista esta vacia
+            contadorNotas = 0;
+        }else{//Si no cuente con los del tamanio de la misma
             contadorNotas = localDataBaseResponse.getItemCount();
+        }
+        if (grabacion == null) {//Quiere decir que no se esta grabando nada
             archivoSalida = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Grabacion"+contadorNotas+".mp3";
             grabacion = new MediaRecorder();
             grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -220,7 +225,7 @@ public class CameraFragment extends Fragment {
         }
         if (singleRowArrayList.size()==0){
             //empty.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            //recyclerView.setVisibility(View.GONE);
         }else {
             localDataBaseResponse = new LocalDataBaseAdapter(getContext(), singleRowArrayList, db, databaseHandler);
             recyclerView.setAdapter(localDataBaseResponse);

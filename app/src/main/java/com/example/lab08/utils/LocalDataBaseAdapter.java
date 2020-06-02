@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.lab08.R;
+import com.example.lab08.activity_photo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +65,14 @@ public class LocalDataBaseAdapter extends RecyclerView.Adapter<LocalDataBaseAdap
                 Reproducir(i);
             }
         });
+        myViewHolder.btn_max.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, activity_photo.class);
+                intent.putExtra("photo",singleRowArrayList.get(i).image);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -72,7 +82,7 @@ public class LocalDataBaseAdapter extends RecyclerView.Adapter<LocalDataBaseAdap
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView newsImage,delete;
-        ImageButton btn_play;
+        ImageButton btn_play,btn_max;
         TextView id;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -80,6 +90,7 @@ public class LocalDataBaseAdapter extends RecyclerView.Adapter<LocalDataBaseAdap
             newsImage = (ImageView) itemView.findViewById(R.id.newsImage);
             delete = (ImageView) itemView.findViewById(R.id.delete);
             btn_play = itemView.findViewById(R.id.btn_play);
+            btn_max = itemView.findViewById(R.id.btn_max);
         }
     }
 
@@ -126,5 +137,13 @@ public class LocalDataBaseAdapter extends RecyclerView.Adapter<LocalDataBaseAdap
 
         return img;
 
+    }
+
+    public ArrayList<LocalResponse> getSingleRowArrayList() {
+        return singleRowArrayList;
+    }
+
+    public void setSingleRowArrayList(ArrayList<LocalResponse> singleRowArrayList) {
+        this.singleRowArrayList = singleRowArrayList;
     }
 }
