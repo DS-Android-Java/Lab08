@@ -28,9 +28,7 @@ public class activity_photo extends AppCompatActivity {
         int ancho = medidasVentana.widthPixels;
         int alto = medidasVentana.heightPixels;
 
-
-
-        getWindow().setLayout((int)(ancho * 0.90), (int)(alto * 0.80));
+        getWindow().setLayout((int)(ancho * 0.90), (int)(alto * 0.70));
     }
 
     private Bitmap getBitmapFromEncodedString(String encodedString){

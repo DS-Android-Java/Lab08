@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lab08.GrabaVideo;
 import com.example.lab08.R;
 import com.example.lab08.utils.DataBaseHandler;
 import com.example.lab08.utils.LocalDataBaseAdapter;
@@ -58,7 +60,7 @@ public class CameraFragment extends Fragment {
 
     private MediaRecorder grabacion;
     private String archivoSalida = null;
-    private ImageButton btr_rec;
+    private ImageView btr_rec;
     LocalDataBaseAdapter localDataBaseResponse;
 
     @Nullable
@@ -73,7 +75,8 @@ public class CameraFragment extends Fragment {
         setData();
 
         text = view.findViewById(R.id.text);
-        btr_rec = (ImageButton) view.findViewById(R.id.btn_rec);
+        btr_rec = (ImageView) view.findViewById(R.id.btn_rec);
+        btr_rec.setVisibility(View.INVISIBLE);
 
         text.setOnClickListener(
                 new View.OnClickListener() {
@@ -138,6 +141,7 @@ public class CameraFragment extends Fragment {
             }
 
             btr_rec.setBackgroundResource(R.drawable.rec);
+            btr_rec.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "Grabando...", Toast.LENGTH_SHORT).show();
         }else if(grabacion != null){//se esta ejecutando la grabacion
             grabacion.stop();
@@ -145,6 +149,7 @@ public class CameraFragment extends Fragment {
             grabacion = null;
             btr_rec.setBackgroundResource(R.drawable.stop_rec);
             Toast.makeText(getContext(),"Grabacion Finalizada...",Toast.LENGTH_SHORT).show();
+            btr_rec.setVisibility(View.INVISIBLE);
             setData();
         }
     }

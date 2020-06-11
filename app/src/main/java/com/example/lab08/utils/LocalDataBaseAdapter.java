@@ -81,8 +81,7 @@ public class LocalDataBaseAdapter extends RecyclerView.Adapter<LocalDataBaseAdap
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView newsImage,delete;
-        ImageButton btn_play,btn_max;
+        ImageView newsImage,delete,btn_play,btn_max;
         TextView id;
 
         public MyViewHolder(@NonNull View itemView) {
