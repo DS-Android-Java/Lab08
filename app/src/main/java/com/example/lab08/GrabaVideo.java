@@ -13,8 +13,13 @@ import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.example.lab08.utils.Accelerometer;
+import com.example.lab08.utils.Gyroscope;
+
 public class GrabaVideo extends AppCompatActivity {
 
+    private Accelerometer accelerometer;
+    private Gyroscope gyroscope;
     private Button buttonRecord,cargarVideo;
     private VideoView vdVw;
     private MediaController mediaController;
@@ -32,7 +37,34 @@ public class GrabaVideo extends AppCompatActivity {
         //Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.earth);
         //Starting VideView By Setting MediaController and URI
 
-        buttonRecord.setOnClickListener(new View.OnClickListener() {
+        accelerometer = new Accelerometer(this);
+        gyroscope = new Gyroscope(this);
+
+        accelerometer.setListener(new Accelerometer.Listener() {
+            @Override
+            public void onTranslation(float tx, float ty, float ts) {
+                if(tx > 1.0f){
+                    cargarVideo();
+                }
+                else  if (tx < -1.0f) {
+                    dispatchTakeVideoIntent();
+                }
+            }
+        });
+
+       gyroscope.setListener(new Gyroscope.Listener() {
+           @Override
+           public void onTranslation(float rx, float ry, float rs) {
+               if(rs > 1.0f){
+                   cargarVideo();
+               }
+               else  if (rs < -1.0f) {
+                   dispatchTakeVideoIntent();
+               }
+           }
+       });
+
+        /*buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakeVideoIntent();
@@ -44,7 +76,19 @@ public class GrabaVideo extends AppCompatActivity {
             public void onClick(View v) {
                 cargarVideo();
             }
-        });
+        });*/
+
+    }
+    protected void onResume() {
+        super.onResume();
+        accelerometer.register();
+        gyroscope.register();
+    }
+
+    protected void onPause() {
+        super.onPause();
+        accelerometer.unregister();
+        gyroscope.unregister();
     }
 
     static final int REQUEST_VIDEO_CAPTURE = 1;
