@@ -43,28 +43,30 @@ public class GrabaVideo extends AppCompatActivity {
         accelerometer.setListener(new Accelerometer.Listener() {
             @Override
             public void onTranslation(float tx, float ty, float ts) {
-                if(tx > 1.0f){
+                if(tx > 5.0f){
+                    tx=0.0f;
                     cargarVideo();
                 }
-                else  if (tx < -1.0f) {
+                else  if (tx < -5.0f) {
+                    tx = 0.0f;
                     dispatchTakeVideoIntent();
                 }
             }
         });
 
-       gyroscope.setListener(new Gyroscope.Listener() {
+       /*gyroscope.setListener(new Gyroscope.Listener() {
            @Override
            public void onTranslation(float rx, float ry, float rs) {
-               if(rs > 1.0f){
+               if(rs > 5.0f){
                    cargarVideo();
                }
-               else  if (rs < -1.0f) {
+               else  if (rs < -5.0f) {
                    dispatchTakeVideoIntent();
                }
            }
-       });
+       });*/
 
-        /*buttonRecord.setOnClickListener(new View.OnClickListener() {
+        buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakeVideoIntent();
@@ -76,7 +78,7 @@ public class GrabaVideo extends AppCompatActivity {
             public void onClick(View v) {
                 cargarVideo();
             }
-        });*/
+        });
 
     }
     protected void onResume() {
